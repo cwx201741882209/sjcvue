@@ -1,18 +1,17 @@
 <template>
 <div class="app-warpper">
-  <div id="page-wrap">
     <!-- 头 -->
-     <maintop /> 
+     <maintop :id="id"/> 
      <!-- 主体视图层 -->
     <div class="main overview">
       <keep-alive>
        <router-view  />  <!-- 第二层路由出口 keep-alive缓存-->
       </keep-alive>  
     </div>
-  </div>
-  <!-- 菜单 -->
+
+  <!-- 菜单 
   <ScaleDown width="300"  >
-      <router-link to="/index/mainview">  <!-- 路由跳转 -->
+      <router-link to="/index/mainview">  路由跳转 
         <span>广播信息展示</span>
       </router-link>
       <router-link to="/index/village"> 
@@ -22,6 +21,7 @@
         <span>物联网信息展示</span>
       </router-link>
   </ScaleDown>  
+  -->
   
 </div>
 </template>
@@ -33,6 +33,7 @@ import maintop from "../../components/main/maintop";
 export default {
   name: 'index',
   components: {ScaleDown,mainview,maintop},//注册组件
+  props:['id'] //接收参数 并传递给子组件
 }
 </script>
 
@@ -52,7 +53,9 @@ li {
 a {
   color: #42b983;
 }
-
+.app-warpper{
+  height:100%;
+}
 .app-warpper /deep/ .bm-burger-bars {
     background-color: #ffffff;
   }

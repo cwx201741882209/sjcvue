@@ -3,7 +3,7 @@
     height:60vh;
     margin:4.5px 0;
     padding:5px 10px;
-    background-color: rgb(00,25,49);
+    background: rgba(0,0,0,.2);
     z-index:2;
     .chartplane_head{
         display: flex;
@@ -11,7 +11,7 @@
         align-items: baseline;
         .title{
             color: #05d2e2;
-            font-size: 14px;
+            font-size: 18px;
             font-style: normal;
         }
     }
@@ -20,16 +20,19 @@
         border-radius: 16px;
         color: #f1eaea;
         padding: 1px 15px;
-        width: 280px;
-        height: 30px;
-        margin:4.5px 0;
+        width: 70%;
+        height: 32px;
+        margin:12px 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
         .chart_title{
             font-family:"Hiragino Sans GB";
-            font-size: 10px;
+            font-size: 14px;
             
+        }
+        i:hover{
+            cursor:pointer;  //鼠标形状变小手
         }
     }
     

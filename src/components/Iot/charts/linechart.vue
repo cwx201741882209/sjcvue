@@ -1,5 +1,7 @@
 <template>
-      <v-chart  :options="polar" style="width:54vw;height:29vh"/>    
+    <div class="iot_char_right" v-show="chartvisible">
+      <v-chart  :options="polar" style="width:20vw;height:29vh"/>    
+    </div>
 </template>
 
 <script>
@@ -8,29 +10,15 @@ export default {
 name: "linechart",
   data () {
     return {
-      polar: {
+
+    polar: {
             title: {
                 text: '温湿度数据',
                 x: 'center',
                 textStyle:{
-                    color: '#ffffff'
+                   color: '#ffffff'
                 }
             },
-            legend: {
-                data:['温度','湿度'],
-                x: 'left', 
-                    textStyle: {  //组件每项颜色
-                        color: ['#1FC06E','#396CC0']
-                    }
-                
-            },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    animation: false
-                }
-            },
-            
             toolbox: {
                 show: true,
                  right: 20, //toolbox的定位位置
@@ -47,17 +35,37 @@ name: "linechart",
                     saveAsImage: {}
                 }
             },
-            axisPointer: {
-                link: {xAxisIndex: 'all'}
+             tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                type: 'cross',
+                animation: false,
+                label: {
+                       backgroundColor: '#505765'
+            }
+        }
+    },
+            legend: {
+                data:['温度','湿度'],
+                x: 'left', 
+                 textStyle: {  //组件每项颜色
+                        color: ['#1FC06E','#396CC0']
+                    }
             },
-            dataZoom: {
-                show : true,
-                realtime : true,
-                start : 0,
-                end : 100,
-                backgroundColor:'#ffffff'
-            },
-            
+             dataZoom: [
+        {
+            show: true,
+            realtime: true,
+            start: 0,
+            end: 100,
+        },
+        {
+            type: 'inside',
+            realtime: true,
+            start: 0,
+            end: 100
+        }],
+    
             xAxis: {
                 type: 'category',
                 data: [],
@@ -71,7 +79,7 @@ name: "linechart",
             },
             yAxis: [
                 {
-                    name : '温度(c)',
+                    name : '温度(/°C)',
                     type : 'value',
                     max : 50,
                     axisLine:{
@@ -98,20 +106,22 @@ name: "linechart",
                     name:'温度',
                     symbolSize: 8,
                     hoverAnimation: false,
-                    data: [],
+                    data: [22,23,23,37,40,32,27,28],
                     type: 'line'
+                    
                 },
                 {
                     name:'湿度',
                     yAxisIndex:1,
                     symbolSize: 8,
                     hoverAnimation: false,
-                    data: [],
+                    data: [ 99,23,54,67,44,86,55],
                     type: 'line'
+                
                 }
             ]
        },
-        
+       chartvisible:false
     }
   },
   methods:{
@@ -149,7 +159,11 @@ name: "linechart",
   watch:{
       listenchartSet:{
           handler(vag){  //handler执行具体方法
-            this.getcoldata(vag.timeframe[0],vag.timeframe[1],vag.limit);
+            if(vag.name=='temp') //温度表
+            {
+                this.getcoldata(vag.timeframe[0],vag.timeframe[1],vag.limit);
+                this.chartvisible=vag.chartvisible;
+            }
         },
         deep: true//是否深度监听设置deep: true  则可以监听到vag.timeframe的变化，此时会给vag的所有属性都加上这个监听器，
         //immediate: true 代表如果在 wacth 里声明了 变量 之后，就会立即先去执行里面的handler方法

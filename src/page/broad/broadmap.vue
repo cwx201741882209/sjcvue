@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import VDistpicker from '../../components/main/Distpicker' //地区选择器组件
+import VDistpicker from '@/components/main/Distpicker' //地区选择器组件
 import { mapGetters } from 'vuex';
-import mapStyle from '../../static/json/mapstyle.json';//地区json
+import mapStyle from '@/static/json/mapstyle.json';//地区json
 import {BmlMarkerClusterer} from 'vue-baidu-map'
 export default {
 
@@ -79,7 +79,7 @@ name: "mainmap",
       if(this.get()==true){       //延迟等待是否加载完毕
           setTimeout(() => {
           loading.close();
-        }, 5000);
+        }, 2000);
       }
      
     },
@@ -169,7 +169,7 @@ name: "mainmap",
 <style lang="scss">
 .bm-view {
   width: 100%;
-  height: 92vh;
+  height: 50vh;
 
 }
 .m_center2{
